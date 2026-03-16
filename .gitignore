@@ -1,12 +1,7 @@
 # Node modules
 node_modules/
 
-# Environment variables
-.env
-.env.local
-.env.production
-
-# MongoDB data
+# MongoDB data - EXCLUDE ALL OF THESE
 mongodb-data/
 data/
 *.lock
@@ -16,6 +11,16 @@ mongod.lock
 diagnostic.data/
 journal/
 _tmp/
+storage.bson
+sizeStorer.wt
+_mdb_catalog.wt
+collection-*.wt
+index-*.wt
+
+# Environment variables
+.env
+.env.local
+.env.production
 
 # Logs
 logs/

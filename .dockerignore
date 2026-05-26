@@ -1,0 +1,15 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+README.md
+.env
+.DS_Store
+mongodb-data
+.vscode
+dist
+build
+coverage
+.env.local
+.env.*.local
+yarn-error.log

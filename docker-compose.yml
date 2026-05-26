@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # MongoDB Service
+  mongodb:
+    image: mongo:7.0
+    container_name: student-app-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DB: student-course-registration
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - student-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Node.js Application Service
+  app:
+    build: .
+    container_name: student-app
+    ports:
+      - "3000:3000"
+    environment:
+      MONGODB_URI: mongodb://admin:password123@mongodb:27017/student-course-registration?authSource=admin
+      NODE_ENV: production
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - student-network
+    restart: unless-stopped
+
+# Named volumes for data persistence
+volumes:
+  mongodb_data:
+    driver: local
+
+# Networks for service communication
+networks:
+  student-network:
+    driver: bridge

@@ -25,7 +25,7 @@ app.use(session({
 }));
 
 // MongoDB Connection
-const MONGODB_URI = 'mongodb://127.0.0.1:27017/student-course-registration';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/student-course-registration';
 
 mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
